@@ -33,3 +33,7 @@ int connect(SOCKET s, const struct sockaddr * name, int namelen); //0 or SOCKET_
 
 
 int closesocket(SOCKET s); // 0 or SOCKET_ERROR
+
+int send (SOCKET s, const char * buf, int len, int flags); // # of bytes delivered or SOCKET_ERROR
+
+int recv(SOCKET s, const char * buf, int len, int flags); // same with upper one (EOF equals 0)
