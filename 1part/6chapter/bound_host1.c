@@ -12,7 +12,7 @@ int main(int argc, char * argv[])
 {
 	int serv_sock;
 	char message[BUF_SIZE];
-	int str_len;
+	int str_len, i;
 	socklen_t clnt_adr_sz;
 
 	struct sockaddr_in serv_adr, clnt_adr;
@@ -35,11 +35,13 @@ int main(int argc, char * argv[])
 	if(bind(serv_sock, (struct sockaddr*)&serv_adr, sizeof(serv_adr))==-1)
 		error_handling("bind() error");
 
-	while(1)
+	for(i=0; i<3; i++)
 	{
+		sleep(5);
 		clnt_adr_sz = sizeof(clnt_adr);
 		str_len = recvfrom(serv_sock, message, BUF_SIZE, 0, (struct sockaddr*)&clnt_adr, &clnt_adr_sz);
-		sendto(serv_sock, message, str_len, 0, (struct sockaddr*)&clnt_adr, clnt_adr_sz);
+
+		printf("Message %d: %s \n", i+1, message);
 	}
 
 	close(serv_sock);
